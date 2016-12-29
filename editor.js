@@ -178,7 +178,7 @@ onload = function() {
     {
       mode: {name: "javascript", json: true },
       lineNumbers: true,
-      theme: "lesser-dark",
+      theme: "twilight",
       fixedGutter: true,
       extraKeys: {
         "Cmd-S": function(instance) { handleSaveButton() },
