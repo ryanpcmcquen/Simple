@@ -10,5 +10,5 @@ A non-trivial sample with basic features of a code editor, like syntax detection
 
      
 ## Screenshot
-![screenshot](https://raw.github.com/GoogleChrome/chrome-app-samples/master/mini-code-edit/assets/screenshot_1280_800.png)
+![screenshot](https://usercontent.irccloud-cdn.com/file/c7Zh1VbV/unnamed.webp)
 
