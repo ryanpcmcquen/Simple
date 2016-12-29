@@ -1,5 +1,4 @@
 {
-"update_url": "https://clients2.google.com/service/update2/crx",
 
   "app": {
     "background": {
@@ -8,24 +7,21 @@
       ]
     }
   }, 
-  "description": "Focus on your code, not your settings.", 
+  "description": "Focus on your code, not your settings.",
   "icons": {
-    "128": "img/128x128/file_edit.png", 
-    "16": "img/16x16/file_edit.png", 
-    "32": "img/32x32/file_edit.png", 
-    "64": "img/64x64/file_edit.png"
-  }, 
-  "manifest_version": 2, 
-  "minimum_chrome_version": "23", 
-  "name": "Simple", 
+    "128": "img/128x128/simple.png"
+  },
+  "manifest_version": 2,
+  "offline_enabled": true,
+  "name": "Simple",
   "permissions": [
     {
       "fileSystem": [
         "write"
       ]
-    }, 
-    "unlimitedStorage", 
+    },
+    "unlimitedStorage",
     "contextMenus"
-  ], 
-  "version": "1.0.0"
+  ],
+  "version": "1.0.1"
 }
