@@ -5,13 +5,17 @@ chrome.app.runtime.onLaunched.addListener(function () {
     frame: 'chrome',
     bounds: {
       width: 640,
-      height: 400
+      height: 700
     },
   });
   chrome.commands.onCommand.addListener(function (command) {
     if (command == "cmdNew") {
       chrome.app.window.create('main.html', {
-        frame: 'chrome'
+        frame: 'chrome',
+        bounds: {
+          width: 640,
+          height: 700
+        },
       });
     }
   });
