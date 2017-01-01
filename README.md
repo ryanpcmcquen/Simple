@@ -1,6 +1,6 @@
-# Mini code editor
+# Simple
 
-A non-trivial sample with basic features of a code editor, like syntax detection and syntax highlight. If also uses the extended FileSystem API that allows a user to select files from the disk so the app can read and write to that file.
+A back to basics code editor. Uses CodeMirror.
 
 ## APIs
 
