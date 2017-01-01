@@ -129,8 +129,8 @@ function handleNewButton() {
     chrome.app.window.create('main.html', {
       frame: 'chrome',
       bounds: {
-        width: 720,
-        height: 400
+        width: 640,
+        height: 700
       }
     });
   }
