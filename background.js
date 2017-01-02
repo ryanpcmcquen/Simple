@@ -1,10 +1,8 @@
 chrome.app.runtime.onLaunched.addListener(function () {
-  // width 640 for font size 12
-  //       720 for font size 14
   chrome.app.window.create('main.html', {
     frame: 'chrome',
     bounds: {
-      width: 640,
+      width: 800,
       height: 700
     },
   });
@@ -13,7 +11,7 @@ chrome.app.runtime.onLaunched.addListener(function () {
       chrome.app.window.create('main.html', {
         frame: 'chrome',
         bounds: {
-          width: 640,
+          width: 800,
           height: 700
         },
       });

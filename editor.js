@@ -129,7 +129,7 @@ function handleNewButton() {
     chrome.app.window.create('main.html', {
       frame: 'chrome',
       bounds: {
-        width: 640,
+        width: 800,
         height: 700
       }
     });
@@ -193,6 +193,11 @@ onload = function () {
       lineNumbers: true,
       theme: "zenburn",
       fixedGutter: true,
+      rulers: [{
+        color: "#777777",
+        column: 80,
+        lineStyle: "solid"
+      }],
       extraKeys: {
         "Cmd-S": function (instance) {
           handleSaveButton()
