@@ -24,3 +24,7 @@ A back to basics code editor. Uses CodeMirror.
 * [chrome.fileSystem](http://developer.chrome.com/trunk/apps/fileSystem.html)
 * [Runtime](http://developer.chrome.com/trunk/apps/app.runtime.html)
 * [Window](http://developer.chrome.com/trunk/apps/app.window.html)
+
+This project uses:
+
+[![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
