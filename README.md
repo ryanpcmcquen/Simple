@@ -2,10 +2,22 @@
 
 A back to basics code editor. Uses CodeMirror.
 
-     
-## Screenshot
 ![screenshot](https://raw.githubusercontent.com/ryanpcmcquen/Simple/master/img/Simple_screenshot.png)
 
+## Keyboard shorcuts:
+
+**New**:
+  <kbd>Ctrl</kbd> + <kbd>N</kbd>
+  <kbd>Cmd</kbd> + <kbd>N</kbd>
+**Open**:
+  <kbd>Ctrl</kbd> + <kbd>O</kbd>
+  <kbd>Cmd</kbd> + <kbd>O</kbd>
+**Save**:
+  <kbd>Ctrl</kbd> + <kbd>S</kbd>
+  <kbd>Cmd</kbd> + <kbd>S</kbd>
+**Find**:
+  <kbd>Ctrl</kbd> + <kbd>F</kbd>
+  <kbd>Cmd</kbd> + <kbd>F</kbd>
 
 ## APIs
 
