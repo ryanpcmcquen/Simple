@@ -8,18 +8,22 @@ A back to basics code editor. Uses CodeMirror.
 
 **New**:
   <kbd>Ctrl</kbd> + <kbd>N</kbd>
+  _OR_
   <kbd>Cmd</kbd> + <kbd>N</kbd>
 
 **Open**:
   <kbd>Ctrl</kbd> + <kbd>O</kbd>
+  _OR_
   <kbd>Cmd</kbd> + <kbd>O</kbd>
 
 **Save**:
   <kbd>Ctrl</kbd> + <kbd>S</kbd>
+  _OR_
   <kbd>Cmd</kbd> + <kbd>S</kbd>
 
 **Find**:
   <kbd>Ctrl</kbd> + <kbd>F</kbd>
+  _OR_
   <kbd>Cmd</kbd> + <kbd>F</kbd>
 
 ## APIs
