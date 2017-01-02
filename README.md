@@ -9,12 +9,15 @@ A back to basics code editor. Uses CodeMirror.
 **New**:
   <kbd>Ctrl</kbd> + <kbd>N</kbd>
   <kbd>Cmd</kbd> + <kbd>N</kbd>
+
 **Open**:
   <kbd>Ctrl</kbd> + <kbd>O</kbd>
   <kbd>Cmd</kbd> + <kbd>O</kbd>
+
 **Save**:
   <kbd>Ctrl</kbd> + <kbd>S</kbd>
   <kbd>Cmd</kbd> + <kbd>S</kbd>
+
 **Find**:
   <kbd>Ctrl</kbd> + <kbd>F</kbd>
   <kbd>Cmd</kbd> + <kbd>F</kbd>
