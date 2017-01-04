@@ -139,7 +139,10 @@ window.addEventListener('DOMContentLoaded', () => {
   openButton.addEventListener('click', handleOpenButton)
   saveButton.addEventListener('click', handleSaveButton)
 
+  // Fix an odd scrolling error:
   editor.$blockScrolling = Infinity
+  // Disable syntax checking:
+  editor.session.setOption('useWorker', false)
 
   editor.commands.addCommand({
     name: 'newFile',
