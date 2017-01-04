@@ -9,24 +9,13 @@ window.addEventListener('DOMContentLoaded', () => {
   let fileEntry
   let hasWriteAccess
   const editor = ace.edit('editor')
-  // console.log(editor)
 
   const newButton = document.getElementById('new')
   const openButton = document.getElementById('open')
   const saveButton = document.getElementById('save')
 
-  newButton.addEventListener('click', handleNewButton)
-  openButton.addEventListener('click', handleOpenButton)
-  saveButton.addEventListener('click', handleSaveButton)
-
-  // function newFile () {
-    // fileEntry = null
-    // hasWriteAccess = false
-    // handleDocumentChange(null)
-  // }
-
-  function errorHandler (e) {
-    var msg = ''
+  const errorHandler = (e) => {
+    let msg = ''
 
     switch (e.code) {
       case FileError.QUOTA_EXCEEDED_ERR:
@@ -52,49 +41,37 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log('Error: ' + msg)
   }
 
-  function handleDocumentChange (title) {
-    // var mode = 'javascript'
-    // var modeName = 'JavaScript'
+  const modelist = ace.require('ace/ext/modelist')
+  const handleDocumentChange = (title) => {
+    let mode
     if (title) {
       title = title.match(/[^/]+$/)[0]
       document.getElementById('title').innerHTML = title
       document.title = title
-      // if (title.match(/.json$/)) {
-        // mode = {
-          // name: 'javascript',
-          // json: true
-        // }
-        // modeName = 'JavaScript (JSON)'
-      // } else if (title.match(/.html$/)) {
-        // mode = 'htmlmixed'
-        // modeName = 'HTML'
-      // } else if (title.match(/.css$/)) {
-        // mode = 'css'
-        // modeName = 'CSS'
-      // }
+      mode = modelist.getModeForPath(title).mode
     } else {
       document.getElementById('title').innerHTML = '[no document loaded]'
     }
-    // editor.setOption('mode', mode)
-    // document.getElementById('mode').innerHTML = modeName
+    editor.session.setMode(mode)
+    document.getElementById('mode').innerHTML = mode.replace(/.*\//g, '')
   }
 
-  function setFile (theFileEntry, isWritable) {
+  const setFile = (theFileEntry, isWritable) => {
     fileEntry = theFileEntry
     hasWriteAccess = isWritable
   }
 
-  function readFileIntoEditor (theFileEntry) {
+  const readFileIntoEditor = (theFileEntry) => {
     if (theFileEntry) {
-      theFileEntry.file(function (file) {
-        var fileReader = new FileReader()
+      theFileEntry.file((file) => {
+        const fileReader = new FileReader()
 
-        fileReader.onload = function (e) {
+        fileReader.onload = (e) => {
           handleDocumentChange(theFileEntry.fullPath)
           editor.setValue(e.target.result)
         }
 
-        fileReader.onerror = function (e) {
+        fileReader.onerror = (e) => {
           console.log('Read failed: ' + e.toString())
         }
 
@@ -103,16 +80,16 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function writeEditorToFile (theFileEntry) {
-    theFileEntry.createWriter(function (fileWriter) {
-      fileWriter.onerror = function (e) {
+  const writeEditorToFile = (theFileEntry) => {
+    theFileEntry.createWriter((fileWriter) => {
+      fileWriter.onerror = (e) => {
         console.log('Write failed: ' + e.toString())
       }
 
-      var blob = new Blob([editor.getValue()])
+      const blob = new Blob([editor.getValue()])
       fileWriter.truncate(blob.size)
-      fileWriter.onwriteend = function () {
-        fileWriter.onwriteend = function (e) {
+      fileWriter.onwriteend = () => {
+        fileWriter.onwriteend = (e) => {
           handleDocumentChange(theFileEntry.fullPath)
           console.log('Write completed.')
         }
@@ -122,40 +99,33 @@ window.addEventListener('DOMContentLoaded', () => {
     }, errorHandler)
   }
 
-/*
-var onChosenFileToOpen = function (theFileEntry) {
-  setFile(theFileEntry, false)
-  readFileIntoEditor(theFileEntry)
-}
-*/
-
-  var onWritableFileToOpen = function (theFileEntry) {
+  const onWritableFileToOpen = (theFileEntry) => {
     setFile(theFileEntry, true)
     readFileIntoEditor(theFileEntry)
   }
 
-  var onChosenFileToSave = function (theFileEntry) {
+  const onChosenFileToSave = (theFileEntry) => {
     setFile(theFileEntry, true)
     writeEditorToFile(theFileEntry)
   }
 
-  function handleNewButton () {
+  const handleNewButton = () => {
     chrome.app.window.create('main.html', {
       frame: 'chrome',
       bounds: {
-        width: 800,
+        width: 750,
         height: 700
       }
     })
   }
 
-  function handleOpenButton () {
+  const handleOpenButton = () => {
     chrome.fileSystem.chooseEntry({
       type: 'openWritableFile'
     }, onWritableFileToOpen)
   }
 
-  function handleSaveButton () {
+  const handleSaveButton = () => {
     if (fileEntry && hasWriteAccess) {
       writeEditorToFile(fileEntry)
     } else {
@@ -164,4 +134,27 @@ var onChosenFileToOpen = function (theFileEntry) {
       }, onChosenFileToSave)
     }
   }
+
+  newButton.addEventListener('click', handleNewButton)
+  openButton.addEventListener('click', handleOpenButton)
+  saveButton.addEventListener('click', handleSaveButton)
+
+  editor.$blockScrolling = Infinity
+
+  editor.commands.addCommand({
+    name: 'newFile',
+    bindKey: {win: 'Ctrl-N', mac: 'Command-N'},
+    exec: handleNewButton
+  })
+
+  editor.commands.addCommand({
+    name: 'openFile',
+    bindKey: {win: 'Ctrl-O', mac: 'Command-O'},
+    exec: handleOpenButton
+  })
+  editor.commands.addCommand({
+    name: 'saveFile',
+    bindKey: {win: 'Ctrl-S', mac: 'Command-S'},
+    exec: handleSaveButton
+  })
 })
