@@ -1,12 +1,11 @@
 {
-
   "app": {
     "background": {
       "scripts": [
         "background.js"
       ]
     }
-  }, 
+  },
   "description": "Focus on your code, not your settings.",
   "icons": {
     "128": "img/128x128/simple.png"
@@ -14,8 +13,7 @@
   "manifest_version": 2,
   "offline_enabled": true,
   "name": "Simple",
-  "permissions": [
-    {
+  "permissions": [{
       "fileSystem": [
         "write"
       ]
@@ -23,5 +21,5 @@
     "unlimitedStorage",
     "contextMenus"
   ],
-  "version": "1.0.3"
+  "version": "2.0.0"
 }
