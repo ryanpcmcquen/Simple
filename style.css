@@ -8,24 +8,12 @@ button {
   margin: 0;
 }
 
-.CodeMirror {
-  margin: 0;
-  padding: 0;
-  height: 100% !important;
-}
-
-.CodeMirror-scroll {
-  height: auto;
-  overflow-y: hidden;
-  overflow-x: auto;
-}
-
 #editor {
   position: absolute;
   top: 29px;
+  right: 0;
   bottom: 24px;
   left: 0;
-  right: 0;
   font-size: 14px;
 }
 

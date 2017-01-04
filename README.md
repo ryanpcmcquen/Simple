@@ -1,6 +1,6 @@
 # Simple
 
-A back to basics code editor. Uses CodeMirror.
+A back to basics code editor. It originally used CodeMirror, but switched to Ace.
 
 ![screenshot](https://raw.githubusercontent.com/ryanpcmcquen/Simple/master/img/Simple_screenshot.png)
 
