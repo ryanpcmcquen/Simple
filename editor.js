@@ -1,203 +1,243 @@
-var newButton, openButton, saveButton;
-var editor;
-var fileEntry;
-var hasWriteAccess;
+/* global
+  FileError,
+  Blob,
+  chrome,
+  CodeMirror,
+  FileReader
+*/
+var newButton, openButton, saveButton
+var editor
+var fileEntry
+var hasWriteAccess
 
-function errorHandler(e) {
-  var msg = "";
+function errorHandler (e) {
+  var msg = ''
 
   switch (e.code) {
     case FileError.QUOTA_EXCEEDED_ERR:
-    msg = "QUOTA_EXCEEDED_ERR";
-    break;
+      msg = 'QUOTA_EXCEEDED_ERR'
+      break
     case FileError.NOT_FOUND_ERR:
-    msg = "NOT_FOUND_ERR";
-    break;
+      msg = 'NOT_FOUND_ERR'
+      break
     case FileError.SECURITY_ERR:
-    msg = "SECURITY_ERR";
-    break;
+      msg = 'SECURITY_ERR'
+      break
     case FileError.INVALID_MODIFICATION_ERR:
-    msg = "INVALID_MODIFICATION_ERR";
-    break;
+      msg = 'INVALID_MODIFICATION_ERR'
+      break
     case FileError.INVALID_STATE_ERR:
-    msg = "INVALID_STATE_ERR";
-    break;
+      msg = 'INVALID_STATE_ERR'
+      break
     default:
-    msg = "Unknown Error";
-    break;
-  };
+      msg = 'Unknown Error'
+      break
+  }
 
-  console.log("Error: " + msg);
+  console.log('Error: ' + msg)
 }
 
-function handleDocumentChange(title) {
-  var mode = "javascript";
-  var modeName = "JavaScript";
+function handleDocumentChange (title) {
+  var mode = 'javascript'
+  var modeName = 'JavaScript'
   if (title) {
-    title = title.match(/[^/]+$/)[0];
-    document.getElementById("title").innerHTML = title;
-    document.title = title;
+    title = title.match(/[^/]+$/)[0]
+    document.getElementById('title').innerHTML = title
+    document.title = title
     if (title.match(/.json$/)) {
-      mode = {name: "javascript", json: true};
-      modeName = "JavaScript (JSON)";
+      mode = {
+        name: 'javascript',
+        json: true
+      }
+      modeName = 'JavaScript (JSON)'
     } else if (title.match(/.html$/)) {
-      mode = "htmlmixed";
-      modeName = "HTML";
+      mode = 'htmlmixed'
+      modeName = 'HTML'
     } else if (title.match(/.css$/)) {
-      mode = "css";
-      modeName = "CSS";
+      mode = 'css'
+      modeName = 'CSS'
     }
   } else {
-    document.getElementById("title").innerHTML = "[no document loaded]";
+    document.getElementById('title').innerHTML = '[no document loaded]'
   }
-  editor.setOption("mode", mode);
-  document.getElementById("mode").innerHTML = modeName;
+  editor.setOption('mode', mode)
+  document.getElementById('mode').innerHTML = modeName
 }
 
-function newFile() {
-  fileEntry = null;
-  hasWriteAccess = false;
-  handleDocumentChange(null);
+function newFile () {
+  fileEntry = null
+  hasWriteAccess = false
+  handleDocumentChange(null)
 }
 
-function setFile(theFileEntry, isWritable) {
-  fileEntry = theFileEntry;
-  hasWriteAccess = isWritable;
+function setFile (theFileEntry, isWritable) {
+  fileEntry = theFileEntry
+  hasWriteAccess = isWritable
 }
 
-function readFileIntoEditor(theFileEntry) {
+function readFileIntoEditor (theFileEntry) {
   if (theFileEntry) {
-    theFileEntry.file(function(file) {
-      var fileReader = new FileReader();
+    theFileEntry.file(function (file) {
+      var fileReader = new FileReader()
 
-      fileReader.onload = function(e) {
-        handleDocumentChange(theFileEntry.fullPath);
-        editor.setValue(e.target.result);
-      };
+      fileReader.onload = function (e) {
+        handleDocumentChange(theFileEntry.fullPath)
+        editor.setValue(e.target.result)
+      }
 
-      fileReader.onerror = function(e) {
-        console.log("Read failed: " + e.toString());
-      };
+      fileReader.onerror = function (e) {
+        console.log('Read failed: ' + e.toString())
+      }
 
-      fileReader.readAsText(file);
-    }, errorHandler);
+      fileReader.readAsText(file)
+    }, errorHandler)
   }
 }
 
-function writeEditorToFile(theFileEntry) {
-  theFileEntry.createWriter(function(fileWriter) {
-    fileWriter.onerror = function(e) {
-      console.log("Write failed: " + e.toString());
-    };
-
-    var blob = new Blob([editor.getValue()]);
-    fileWriter.truncate(blob.size);
-    fileWriter.onwriteend = function() {
-      fileWriter.onwriteend = function(e) {
-        handleDocumentChange(theFileEntry.fullPath);
-        console.log("Write completed.");
-      };
-
-      fileWriter.write(blob);
+function writeEditorToFile (theFileEntry) {
+  theFileEntry.createWriter(function (fileWriter) {
+    fileWriter.onerror = function (e) {
+      console.log('Write failed: ' + e.toString())
     }
-  }, errorHandler);
+
+    var blob = new Blob([editor.getValue()])
+    fileWriter.truncate(blob.size)
+    fileWriter.onwriteend = function () {
+      fileWriter.onwriteend = function (e) {
+        handleDocumentChange(theFileEntry.fullPath)
+        console.log('Write completed.')
+      }
+
+      fileWriter.write(blob)
+    }
+  }, errorHandler)
 }
 
-var onChosenFileToOpen = function(theFileEntry) {
-  setFile(theFileEntry, false);
-  readFileIntoEditor(theFileEntry);
-};
+/*
+var onChosenFileToOpen = function (theFileEntry) {
+  setFile(theFileEntry, false)
+  readFileIntoEditor(theFileEntry)
+}
+*/
 
-var onWritableFileToOpen = function(theFileEntry) {
-  setFile(theFileEntry, true);
-  readFileIntoEditor(theFileEntry);
-};
-
-var onChosenFileToSave = function(theFileEntry) {
-  setFile(theFileEntry, true);
-  writeEditorToFile(theFileEntry);
-};
-
-function handleNewButton() {
-  if (false) {
-    newFile();
-    editor.setValue("");
-  } else {
-    chrome.app.window.create('main.html', {
-      frame: 'chrome', bounds: { width: 720, height: 400}
-    });
-  }
+var onWritableFileToOpen = function (theFileEntry) {
+  setFile(theFileEntry, true)
+  readFileIntoEditor(theFileEntry)
 }
 
-function handleOpenButton() {
-  chrome.fileSystem.chooseEntry({ type: 'openWritableFile' }, onWritableFileToOpen);
+var onChosenFileToSave = function (theFileEntry) {
+  setFile(theFileEntry, true)
+  writeEditorToFile(theFileEntry)
 }
 
-function handleSaveButton() {
+function handleNewButton () {
+  chrome.app.window.create('main.html', {
+    frame: 'chrome',
+    bounds: {
+      width: 800,
+      height: 700
+    }
+  })
+}
+
+function handleOpenButton () {
+  chrome.fileSystem.chooseEntry({
+    type: 'openWritableFile'
+  }, onWritableFileToOpen)
+}
+
+function handleSaveButton () {
   if (fileEntry && hasWriteAccess) {
-    writeEditorToFile(fileEntry);
+    writeEditorToFile(fileEntry)
   } else {
-    chrome.fileSystem.chooseEntry({ type: 'saveFile' }, onChosenFileToSave);
+    chrome.fileSystem.chooseEntry({
+      type: 'saveFile'
+    }, onChosenFileToSave)
   }
 }
 
-function initContextMenu() {
-  chrome.contextMenus.removeAll(function() {
-    for (var snippetName in SNIPPETS) {
-      chrome.contextMenus.create({
-        title: snippetName,
-        id: snippetName,
-        contexts: ['all']
-      });
-    }
-  });
-}
+// function initContextMenu () {
+//  chrome.contextMenus.removeAll(function () {
+//    for (var snippetName in SNIPPETS) {
+//      chrome.contextMenus.create({
+//        title: snippetName,
+//        id: snippetName,
+//        contexts: ['all']
+//      })
+//    }
+//  })
+// }
 
-chrome.contextMenus.onClicked.addListener(function(info) {
+chrome.contextMenus.onClicked.addListener(function (info) {
   // Context menu command wasn't meant for us.
   if (!document.hasFocus()) {
-    return;
+    return
   }
 
-  editor.replaceSelection(SNIPPETS[info.menuItemId]);
-});
+  // editor.replaceSelection(SNIPPETS[info.menuItemId])
+})
 
-onload = function() {
-  initContextMenu();
+// onload = function () {
+window.addEventListener('load', function () {
+  // initContextMenu()
 
-  newButton = document.getElementById("new");
-  openButton = document.getElementById("open");
-  saveButton = document.getElementById("save");
+  newButton = document.getElementById('new')
+  openButton = document.getElementById('open')
+  saveButton = document.getElementById('save')
 
-  newButton.addEventListener("click", handleNewButton);
-  openButton.addEventListener("click", handleOpenButton);
-  saveButton.addEventListener("click", handleSaveButton);
+  newButton.addEventListener('click', handleNewButton)
+  openButton.addEventListener('click', handleOpenButton)
+  saveButton.addEventListener('click', handleSaveButton)
 
   editor = CodeMirror(
-    document.getElementById("editor"),
-    {
-      mode: {name: "javascript", json: true },
+    document.getElementById('editor'), {
+      mode: {
+        name: 'javascript',
+        json: true
+      },
       lineNumbers: true,
-      theme: "twilight",
+      theme: 'zenburn',
       fixedGutter: true,
+      rulers: [{
+        color: '#777777',
+        column: 80,
+        lineStyle: 'solid'
+      }],
       extraKeys: {
-        "Cmd-S": function(instance) { handleSaveButton() },
-        "Ctrl-S": function(instance) { handleSaveButton() },
+        'Cmd-S': function (instance) {
+          handleSaveButton()
+        },
+        'Ctrl-S': function (instance) {
+          handleSaveButton()
+        },
+        'Cmd-O': function (instance) {
+          handleOpenButton()
+        },
+        'Ctrl-O': function (instance) {
+          handleOpenButton()
+        },
+        'Cmd-N': function (instance) {
+          handleNewButton()
+        },
+        'Ctrl-N': function (instance) {
+          handleNewButton()
+        }
       }
-    });
+    })
 
-  newFile();
-  onresize();
-};
+  newFile()
+  onresize()
+})
 
-onresize = function() {
-  var container = document.getElementById('editor');
-  var containerWidth = container.offsetWidth;
-  var containerHeight = container.offsetHeight;
+var onresize = function () {
+// window.addEventListener('resize', function () {
+  var container = document.getElementById('editor')
+  var containerWidth = container.offsetWidth
+  var containerHeight = container.offsetHeight
 
-  var scrollerElement = editor.getScrollerElement();
-  scrollerElement.style.width = containerWidth + 'px';
-  scrollerElement.style.height = containerHeight + 'px';
+  var scrollerElement = editor.getScrollerElement()
+  scrollerElement.style.width = containerWidth + 'px'
+  scrollerElement.style.height = containerHeight + 'px'
 
-  editor.refresh();
+  editor.refresh()
 }
