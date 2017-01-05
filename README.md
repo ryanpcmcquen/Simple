@@ -35,3 +35,5 @@ A back to basics code editor. It originally used CodeMirror, but switched to Ace
 This project uses:
 
 [![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
+![Ace Editor](https://ace.c9.io/doc/site/images/ace-logo.png)
