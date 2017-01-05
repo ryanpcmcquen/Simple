@@ -166,4 +166,15 @@ window.addEventListener('DOMContentLoaded', () => {
 
   editor.getSession().setTabSize(2)
   editor.getSession().setUseSoftTabs(true)
+
+  // Autosave:
+  editor.on('input', () => {
+    handleSaveButton()
+  })
+
+  // Enable autocomplete:
+  ace.require('ace/ext/language_tools')
+  editor.setOptions({
+    enableBasicAutocompletion: true
+  })
 })
