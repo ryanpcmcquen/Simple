@@ -36,16 +36,18 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log('Error: ' + msg)
   }
 
-  const modelist = ace.require('ace/ext/modelist')
+  const modeList = ace.require('ace/ext/modelist')
+  const titleNode = document.getElementById('title')
+  const modeNode = document.getElementById('mode')
   const handleDocumentChange = (title) => {
     let mode
     if (title) {
       title = title.match(/[^/]+$/)[0]
-      document.getElementById('title').innerHTML = title
+      titleNode.textContent = title
       document.title = title
-      mode = modelist.getModeForPath(title).mode
+      mode = modeList.getModeForPath(title).mode
     } else {
-      document.getElementById('title').innerHTML = '[no document loaded]'
+      titleNode.textContent = '[no document loaded]'
     }
     editor.session.setMode(mode)
     if ((/python/).test(mode)) {
@@ -58,7 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
       editor.getSession().setTabSize(2)
       editor.getSession().setUseSoftTabs(true)
     }
-    document.getElementById('mode').innerHTML = mode.replace(/.*\//g, '')
+    modeNode.textContent = mode.replace(/.*\//g, '')
   }
 
   const setFile = (theFileEntry, isWritable) => {

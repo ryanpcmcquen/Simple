@@ -1,5 +1,5 @@
 /* global chrome */
-chrome.app.runtime.onLaunched.addListener(function () {
+chrome.app.runtime.onLaunched.addListener(() => {
   chrome.app.window.create('main.html', {
     frame: 'chrome',
     bounds: {
