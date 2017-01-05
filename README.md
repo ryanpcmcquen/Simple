@@ -26,13 +26,13 @@ A back to basics code editor. It originally used CodeMirror, but switched to Ace
   _OR_
   <kbd>Cmd</kbd> + <kbd>F</kbd>
 
-## APIs
+### APIs
 
 * [chrome.fileSystem](http://developer.chrome.com/trunk/apps/fileSystem.html)
 * [Runtime](http://developer.chrome.com/trunk/apps/app.runtime.html)
 * [Window](http://developer.chrome.com/trunk/apps/app.window.html)
 
-This project uses:
+### This project uses:
 
 [![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
