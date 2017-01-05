@@ -10,10 +10,6 @@ window.addEventListener('DOMContentLoaded', () => {
   let hasWriteAccess
   const editor = ace.edit('editor')
 
-  const newButton = document.getElementById('new')
-  const openButton = document.getElementById('open')
-  const saveButton = document.getElementById('save')
-
   const errorHandler = (e) => {
     let msg = ''
 
@@ -37,7 +33,6 @@ window.addEventListener('DOMContentLoaded', () => {
         msg = 'Unknown Error'
         break
     }
-
     console.log('Error: ' + msg)
   }
 
@@ -53,6 +48,16 @@ window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('title').innerHTML = '[no document loaded]'
     }
     editor.session.setMode(mode)
+    if ((/python/).test(mode)) {
+      editor.getSession().setTabSize(4)
+      editor.getSession().setUseSoftTabs(true)
+    } else if ((/makefile/).test(mode)) {
+      editor.getSession().setTabSize(8)
+      editor.getSession().setUseSoftTabs(false)
+    } else {
+      editor.getSession().setTabSize(2)
+      editor.getSession().setUseSoftTabs(true)
+    }
     document.getElementById('mode').innerHTML = mode.replace(/.*\//g, '')
   }
 
@@ -135,10 +140,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  newButton.addEventListener('click', handleNewButton)
-  openButton.addEventListener('click', handleOpenButton)
-  saveButton.addEventListener('click', handleSaveButton)
-
   // Fix an odd scrolling error:
   editor.$blockScrolling = Infinity
   // Disable syntax checking:
@@ -160,4 +161,7 @@ window.addEventListener('DOMContentLoaded', () => {
     bindKey: {win: 'Ctrl-S', mac: 'Command-S'},
     exec: handleSaveButton
   })
+
+  editor.getSession().setTabSize(2)
+  editor.getSession().setUseSoftTabs(true)
 })

@@ -4,15 +4,11 @@ body {
   overflow: hidden;
 }
 
-button {
-  margin: 0;
-}
-
 #editor {
   position: absolute;
-  top: 29px;
+  top: 0;
   right: 0;
-  bottom: 24px;
+  bottom: 14px;
   left: 0;
   font-size: 14px;
 }
@@ -23,17 +19,12 @@ button {
   position: absolute;
   bottom: 0;
   background: #eee;
-  padding: 2px;
-  height: 20px;
+  padding: 5px 10px;
+  height: 10px;
   left: 0;
   right: 0;
 }
 
-.info label {
-  font-weight: bold;
-}
-
-.buttons {
-  padding: 2px;
-  height: 25px;
+.info #mode {
+  float: right;
 }
