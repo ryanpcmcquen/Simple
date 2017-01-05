@@ -36,4 +36,4 @@ This project uses:
 
 [![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
-![Ace Editor](https://ace.c9.io/doc/site/images/ace-logo.png)
+[![Ace Editor](https://ace.c9.io/doc/site/images/ace-logo.png)](https://ace.c9.io)
