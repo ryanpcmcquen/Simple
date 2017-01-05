@@ -169,7 +169,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Autosave:
   editor.on('input', () => {
-    handleSaveButton()
+    (titleNode.textContent) &&
+      handleSaveButton()
   })
 
   // Enable autocomplete:
