@@ -51,14 +51,20 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     editor.session.setMode(mode)
     if ((/python/).test(mode)) {
-      editor.getSession().setTabSize(4)
-      editor.getSession().setUseSoftTabs(true)
+      editor.setOptions({
+        tabSize: 4,
+        useSoftTabs: true
+      })
     } else if ((/makefile/).test(mode)) {
-      editor.getSession().setTabSize(8)
-      editor.getSession().setUseSoftTabs(false)
+      editor.setOptions({
+        tabSize: 8,
+        useSoftTabs: false
+      })
     } else {
-      editor.getSession().setTabSize(2)
-      editor.getSession().setUseSoftTabs(true)
+      editor.setOptions({
+        tabSize: 2,
+        useSoftTabs: true
+      })
     }
     modeNode.textContent = mode.replace(/.*\//g, '')
   }
@@ -164,9 +170,6 @@ window.addEventListener('DOMContentLoaded', () => {
     exec: handleSaveButton
   })
 
-  editor.getSession().setTabSize(2)
-  editor.getSession().setUseSoftTabs(true)
-
   // Autosave:
   editor.on('input', () => {
     (titleNode.textContent) &&
@@ -176,6 +179,8 @@ window.addEventListener('DOMContentLoaded', () => {
   // Enable autocomplete:
   ace.require('ace/ext/language_tools')
   editor.setOptions({
+    tabSize: 2,
+    useSoftTabs: true,
     enableBasicAutocompletion: true
   })
 })
