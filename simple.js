@@ -155,18 +155,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
   editor.commands.addCommand({
     name: 'newFile',
-    bindKey: {win: 'Ctrl-N', mac: 'Command-N'},
+    bindKey: {
+      win: 'Ctrl-N',
+      mac: 'Command-N'
+    },
     exec: handleNewButton
   })
 
   editor.commands.addCommand({
     name: 'openFile',
-    bindKey: {win: 'Ctrl-O', mac: 'Command-O'},
+    bindKey: {
+      win: 'Ctrl-O',
+      mac: 'Command-O'
+    },
     exec: handleOpenButton
   })
   editor.commands.addCommand({
     name: 'saveFile',
-    bindKey: {win: 'Ctrl-S', mac: 'Command-S'},
+    bindKey: {
+      win: 'Ctrl-S',
+      mac: 'Command-S'
+    },
     exec: handleSaveButton
   })
 
@@ -181,6 +190,7 @@ window.addEventListener('DOMContentLoaded', () => {
   editor.setOptions({
     tabSize: 2,
     useSoftTabs: true,
-    enableBasicAutocompletion: true
+    enableBasicAutocompletion: true,
+    enableLiveAutocompletion: true
   })
 })
