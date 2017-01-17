@@ -153,31 +153,56 @@ window.addEventListener('DOMContentLoaded', () => {
   // Disable syntax checking:
   editor.session.setOption('useWorker', false)
 
-  editor.commands.addCommand({
+  editor.commands.addCommands([{
     name: 'newFile',
     bindKey: {
       win: 'Ctrl-N',
       mac: 'Command-N'
     },
     exec: handleNewButton
-  })
-
-  editor.commands.addCommand({
+  }, {
     name: 'openFile',
     bindKey: {
       win: 'Ctrl-O',
       mac: 'Command-O'
     },
     exec: handleOpenButton
-  })
-  editor.commands.addCommand({
+  }, {
     name: 'saveFile',
     bindKey: {
       win: 'Ctrl-S',
       mac: 'Command-S'
     },
     exec: handleSaveButton
-  })
+  }, {
+    name: 'increaseFontSize',
+    bindKey: {
+      win: 'Ctrl-=|Ctrl-+',
+      mac: 'Command-=|Command-+'
+    },
+    exec: () => {
+      editor.setOption('fontSize', (editor.getOption('fontSize') + 2))
+    }
+  }, {
+    name: 'decreaseFontSize',
+    bindKey: {
+      win: 'Ctrl--|Ctrl-_',
+      mac: 'Command--|Command-_'
+    },
+    exec: () => {
+      editor.setOption('fontSize', (editor.getOption('fontSize') - 2))
+    }
+  }, {
+    name: 'resetFontSize',
+    bindKey: {
+      win: 'Ctrl-0|Ctrl-Numpad0',
+      mac: 'Command-0|Command-Numpad0'
+    },
+    exec: () => {
+      editor.setOption('fontSize', 14)
+    }
+  }
+  ])
 
   // Autosave:
   editor.on('input', () => {
