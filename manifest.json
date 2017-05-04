@@ -8,7 +8,7 @@
   },
   "description": "Focus on your code, not your settings.",
   "icons": {
-    "128": "img/Simple_icon.png"
+    "128": "assets/img/Simple_icon.png"
   },
   "manifest_version": 2,
   "offline_enabled": true,
@@ -21,5 +21,12 @@
     "unlimitedStorage",
     "contextMenus"
   ],
-  "version": "2.2.0"
+  "version": "2.3.0",
+  "file_handlers": {
+    "text": {
+      "types": [
+        "text/*"
+      ]
+    }
+  }
 }

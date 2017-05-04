@@ -3,7 +3,8 @@ ace,
 chrome,
 FileReader,
 Blob,
-FileError
+FileError,
+odis
 */
 window.addEventListener('DOMContentLoaded', () => {
   let fileEntry
@@ -181,7 +182,8 @@ window.addEventListener('DOMContentLoaded', () => {
       mac: 'Command-=|Command-+'
     },
     exec: () => {
-      editor.setOption('fontSize', (editor.getOption('fontSize') + 2))
+      editor.setOption('fontSize', (editor.getOption('fontSize') +
+        2))
     }
   }, {
     name: 'decreaseFontSize',
@@ -190,7 +192,8 @@ window.addEventListener('DOMContentLoaded', () => {
       mac: 'Command--|Command-_'
     },
     exec: () => {
-      editor.setOption('fontSize', (editor.getOption('fontSize') - 2))
+      editor.setOption('fontSize', (editor.getOption('fontSize') -
+        2))
     }
   }, {
     name: 'resetFontSize',
@@ -201,14 +204,13 @@ window.addEventListener('DOMContentLoaded', () => {
     exec: () => {
       editor.setOption('fontSize', 14)
     }
-  }
-  ])
+  }])
 
   // Autosave:
-  editor.on('input', () => {
+  editor.on('input', odis.debounce(() => {
     (titleNode.textContent) &&
-      handleSaveButton()
-  })
+    handleSaveButton()
+  }))
 
   // Enable autocomplete:
   ace.require('ace/ext/language_tools')
