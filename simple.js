@@ -220,4 +220,6 @@ window.addEventListener('DOMContentLoaded', () => {
     enableBasicAutocompletion: true,
     enableLiveAutocompletion: true
   })
+
+  editor.focus()
 })
