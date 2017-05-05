@@ -21,7 +21,7 @@
     "unlimitedStorage",
     "contextMenus"
   ],
-  "version": "2.3.1",
+  "version": "2.3.3",
   "file_handlers": {
     "text": {
       "types": [
