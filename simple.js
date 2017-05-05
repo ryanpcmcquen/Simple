@@ -209,7 +209,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Autosave:
   editor.on('input', odis.debounce(() => {
     (titleNode.textContent) &&
-    handleSaveButton()
+      handleSaveButton()
   }))
 
   // Enable autocomplete:
@@ -222,4 +222,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   editor.focus()
+  chrome.app.runtime.onLaunched.addListener((launchData) => {
+    onWritableFileToOpen(launchData.items)
+  })
 })
