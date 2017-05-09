@@ -206,11 +206,13 @@ window.addEventListener('load', () => {
   }])
 
   // Autosave:
-  editor.on('input', odis.debounce(() => {
-    if (titleNode.textContent) {
-      handleSaveButton()
-    }
-  }))
+  editor.on(
+    'input', odis.debounce(() => {
+      if (titleNode.textContent) {
+        handleSaveButton()
+      }
+    })
+  )
 
   // Enable autocomplete:
   ace.require('ace/ext/language_tools')
@@ -222,21 +224,20 @@ window.addEventListener('load', () => {
   })
 
   chrome.runtime.getBackgroundPage((backgroundWindow) => {
-    if (backgroundWindow._simpleIsOpeningFiles_) {
-      if (backgroundWindow.launchData && backgroundWindow.launchData.items) {
-        backgroundWindow.launchData.items.map((item) => {
-          chrome.app.window.create('main.html', {
-            frame: 'chrome',
-            bounds: {
-              width: 750,
-              height: 700
-            }
-          }, () => {
-            onWritableFileToOpen(item.entry)
-          })
-        })
-        backgroundWindow._simpleIsOpeningFiles_ = false
-      }
+    if (
+          backgroundWindow.launchData &&
+          backgroundWindow.launchData.items &&
+          backgroundWindow.launchData.items.length
+      ) {
+      chrome.app.window.create('main.html', {
+        frame: 'chrome',
+        bounds: {
+          width: 750,
+          height: 700
+        }
+      }, () => {
+        onWritableFileToOpen(backgroundWindow.launchData.items.pop().entry)
+      })
     } else {
       return false
     }
