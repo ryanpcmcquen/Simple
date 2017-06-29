@@ -51,19 +51,14 @@ window.addEventListener('load', () => {
       titleNode.textContent = '[No document loaded.]'
     }
     editor.session.setMode(mode)
-    if ((/python/).test(mode)) {
-      editor.setOptions({
-        tabSize: 4,
-        useSoftTabs: true
-      })
-    } else if ((/makefile/).test(mode)) {
+    if ((/makefile/).test(mode)) {
       editor.setOptions({
         tabSize: 8,
         useSoftTabs: false
       })
     } else {
       editor.setOptions({
-        tabSize: 2,
+        tabSize: 4,
         useSoftTabs: true
       })
     }
@@ -217,7 +212,7 @@ window.addEventListener('load', () => {
   // Enable autocomplete:
   ace.require('ace/ext/language_tools')
   editor.setOptions({
-    tabSize: 2,
+    tabSize: 4,
     useSoftTabs: true,
     enableBasicAutocompletion: true,
     enableLiveAutocompletion: true
@@ -245,3 +240,4 @@ window.addEventListener('load', () => {
 
   editor.focus()
 })
+
