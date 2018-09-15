@@ -1,10 +1,16 @@
+@font-face {
+    font-family: 'IBM Plex Mono';
+    src: url('assets/IBM-Plex-Mono/IBMPlexMono-Regular.woff2') format('woff2');
+}
 body {
+    font-family: 'IBM Plex Mono';
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
 
 #editor {
+    font-family: 'IBM Plex Mono';
     position: absolute;
     top: 0;
     right: 0;
@@ -14,7 +20,7 @@ body {
 }
 
 .info {
-    font-family: monospace;
+    font-family: 'IBM Plex Mono';
     white-space: nowrap;
     position: absolute;
     bottom: 0;
@@ -28,3 +34,4 @@ body {
 .info #mode {
     float: right;
 }
+
