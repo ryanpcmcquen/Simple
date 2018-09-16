@@ -6,41 +6,41 @@ Blob,
 FileError,
 odis
 */
-window.addEventListener("load", () => {
+window.addEventListener('load', () => {
     let fileEntry
     let hasWriteAccess
-    const editor = ace.edit("editor")
+    const editor = ace.edit('editor')
 
-    const errorHandler = e => {
-        let msg = ""
+    const errorHandler = (e) => {
+        let msg = ''
 
         switch (e.code) {
             case FileError.QUOTA_EXCEEDED_ERR:
-                msg = "QUOTA_EXCEEDED_ERR"
+                msg = 'QUOTA_EXCEEDED_ERR'
                 break
             case FileError.NOT_FOUND_ERR:
-                msg = "NOT_FOUND_ERR"
+                msg = 'NOT_FOUND_ERR'
                 break
             case FileError.SECURITY_ERR:
-                msg = "SECURITY_ERR"
+                msg = 'SECURITY_ERR'
                 break
             case FileError.INVALID_MODIFICATION_ERR:
-                msg = "INVALID_MODIFICATION_ERR"
+                msg = 'INVALID_MODIFICATION_ERR'
                 break
             case FileError.INVALID_STATE_ERR:
-                msg = "INVALID_STATE_ERR"
+                msg = 'INVALID_STATE_ERR'
                 break
             default:
-                msg = "Unknown Error"
+                msg = 'Unknown Error'
                 break
         }
-        console.log("Error: " + msg)
+        console.log('Error: ' + msg)
     }
 
-    const modeList = ace.require("ace/ext/modelist")
-    const titleNode = document.getElementById("title")
-    const modeNode = document.getElementById("mode")
-    const handleDocumentChange = title => {
+    const modeList = ace.require('ace/ext/modelist')
+    const titleNode = document.getElementById('title')
+    // const modeNode = document.getElementById("mode")
+    const handleDocumentChange = (title) => {
         let mode
         if (title) {
             title = title.match(/[^/]+$/)[0]
@@ -48,7 +48,7 @@ window.addEventListener("load", () => {
             document.title = title
             mode = modeList.getModeForPath(title).mode
         } else {
-            titleNode.textContent = "[No document loaded.]"
+            titleNode.textContent = '[No document loaded.]'
         }
         editor.session.setMode(mode)
         if (/makefile/.test(mode)) {
@@ -62,7 +62,7 @@ window.addEventListener("load", () => {
                 useSoftTabs: true
             })
         }
-        modeNode.textContent = mode.replace(/.*\//g, "")
+        // modeNode.textContent = mode.replace(/.*\//g, "")
     }
 
     const setFile = (theFileEntry, isWritable) => {
@@ -70,18 +70,18 @@ window.addEventListener("load", () => {
         hasWriteAccess = isWritable
     }
 
-    const readFileIntoEditor = theFileEntry => {
+    const readFileIntoEditor = (theFileEntry) => {
         if (theFileEntry) {
-            theFileEntry.file(file => {
+            theFileEntry.file((file) => {
                 const fileReader = new FileReader()
 
-                fileReader.onload = e => {
+                fileReader.onload = (e) => {
                     handleDocumentChange(theFileEntry.fullPath)
                     editor.setValue(e.target.result)
                 }
 
-                fileReader.onerror = e => {
-                    console.log("Read failed: " + e.toString())
+                fileReader.onerror = (e) => {
+                    console.log('Read failed: ' + e.toString())
                 }
 
                 fileReader.readAsText(file)
@@ -89,16 +89,16 @@ window.addEventListener("load", () => {
         }
     }
 
-    const writeEditorToFile = theFileEntry => {
-        theFileEntry.createWriter(fileWriter => {
-            fileWriter.onerror = e => {
-                console.log("Write failed: " + e.toString())
+    const writeEditorToFile = (theFileEntry) => {
+        theFileEntry.createWriter((fileWriter) => {
+            fileWriter.onerror = (e) => {
+                console.log('Write failed: ' + e.toString())
             }
 
             const blob = new Blob([editor.getValue()])
             fileWriter.truncate(blob.size)
             fileWriter.onwriteend = () => {
-                fileWriter.onwriteend = e => {
+                fileWriter.onwriteend = (e) => {
                     handleDocumentChange(theFileEntry.fullPath)
                 }
 
@@ -107,19 +107,19 @@ window.addEventListener("load", () => {
         }, errorHandler)
     }
 
-    const onWritableFileToOpen = theFileEntry => {
+    const onWritableFileToOpen = (theFileEntry) => {
         setFile(theFileEntry, true)
         readFileIntoEditor(theFileEntry)
     }
 
-    const onChosenFileToSave = theFileEntry => {
+    const onChosenFileToSave = (theFileEntry) => {
         setFile(theFileEntry, true)
         writeEditorToFile(theFileEntry)
     }
 
     const handleNewButton = () => {
-        chrome.app.window.create("main.html", {
-            frame: "chrome",
+        chrome.app.window.create('main.html', {
+            frame: 'chrome',
             bounds: {
                 width: 750,
                 height: 700
@@ -130,7 +130,7 @@ window.addEventListener("load", () => {
     const handleOpenButton = () => {
         chrome.fileSystem.chooseEntry(
             {
-                type: "openWritableFile"
+                type: 'openWritableFile'
             },
             onWritableFileToOpen
         )
@@ -142,7 +142,7 @@ window.addEventListener("load", () => {
         } else {
             chrome.fileSystem.chooseEntry(
                 {
-                    type: "saveFile"
+                    type: 'saveFile'
                 },
                 onChosenFileToSave
             )
@@ -152,68 +152,68 @@ window.addEventListener("load", () => {
     // Fix an odd scrolling error:
     editor.$blockScrolling = Infinity
     // Disable syntax checking:
-    editor.session.setOption("useWorker", false)
+    editor.session.setOption('useWorker', false)
 
     editor.commands.addCommands([
         {
-            name: "newFile",
+            name: 'newFile',
             bindKey: {
-                win: "Ctrl-N",
-                mac: "Command-N"
+                win: 'Ctrl-N',
+                mac: 'Command-N'
             },
             exec: handleNewButton
         },
         {
-            name: "openFile",
+            name: 'openFile',
             bindKey: {
-                win: "Ctrl-O",
-                mac: "Command-O"
+                win: 'Ctrl-O',
+                mac: 'Command-O'
             },
             exec: handleOpenButton
         },
         {
-            name: "saveFile",
+            name: 'saveFile',
             bindKey: {
-                win: "Ctrl-S",
-                mac: "Command-S"
+                win: 'Ctrl-S',
+                mac: 'Command-S'
             },
             exec: handleSaveButton
         },
         {
-            name: "increaseFontSize",
+            name: 'increaseFontSize',
             bindKey: {
-                win: "Ctrl-=|Ctrl-+",
-                mac: "Command-=|Command-+"
+                win: 'Ctrl-=|Ctrl-+',
+                mac: 'Command-=|Command-+'
             },
             exec: () => {
-                editor.setOption("fontSize", editor.getOption("fontSize") + 2)
+                editor.setOption('fontSize', editor.getOption('fontSize') + 2)
             }
         },
         {
-            name: "decreaseFontSize",
+            name: 'decreaseFontSize',
             bindKey: {
-                win: "Ctrl--|Ctrl-_",
-                mac: "Command--|Command-_"
+                win: 'Ctrl--|Ctrl-_',
+                mac: 'Command--|Command-_'
             },
             exec: () => {
-                editor.setOption("fontSize", editor.getOption("fontSize") - 2)
+                editor.setOption('fontSize', editor.getOption('fontSize') - 2)
             }
         },
         {
-            name: "resetFontSize",
+            name: 'resetFontSize',
             bindKey: {
-                win: "Ctrl-0|Ctrl-Numpad0",
-                mac: "Command-0|Command-Numpad0"
+                win: 'Ctrl-0|Ctrl-Numpad0',
+                mac: 'Command-0|Command-Numpad0'
             },
             exec: () => {
-                editor.setOption("fontSize", 14)
+                editor.setOption('fontSize', 14)
             }
         }
     ])
 
     // Autosave:
     editor.on(
-        "input",
+        'input',
         odis.debounce(() => {
             if (titleNode.textContent) {
                 handleSaveButton()
@@ -221,25 +221,35 @@ window.addEventListener("load", () => {
         })
     )
 
+    // Change themes:
+    document
+        .querySelector('.theme-chooser')
+        .addEventListener('click', (event) => {
+            if (/INPUT/.test(event.target.tagName)) {
+                editor.setTheme(`ace/theme/${event.target.value}`)
+            }
+        })
+
     // Enable autocomplete:
-    ace.require("ace/ext/language_tools")
+    ace.require('ace/ext/language_tools')
     editor.setOptions({
         tabSize: 4,
         useSoftTabs: true,
         enableBasicAutocompletion: true,
         enableLiveAutocompletion: true
     })
+    editor.setTheme('ace/theme/twilight')
 
-    chrome.runtime.getBackgroundPage(backgroundWindow => {
+    chrome.runtime.getBackgroundPage((backgroundWindow) => {
         if (
             backgroundWindow.launchData &&
             backgroundWindow.launchData.items &&
             backgroundWindow.launchData.items.length
         ) {
             chrome.app.window.create(
-                "main.html",
+                'main.html',
                 {
-                    frame: "chrome",
+                    frame: 'chrome',
                     bounds: {
                         width: 750,
                         height: 700
