@@ -1,0 +1,12 @@
+nwjs-shell-builder/nwjs-build.sh  \
+     --src=$HOME/Simple \
+     --output-dir=$HOME/Simple/builds \
+     --name=Simple \
+     --win-icon=$HOME/Simple/assets/img/Simple_icon.png \
+     --osx-icon=$HOME/Simple/assets/img/Simple_icon.png \
+     --CFBundleIdentifier=com.McQuen.Simple \
+     --target="0 1 2 3 4 5" \
+     --version="3.4.0" \
+     --libudev \
+     --nw=0.33.2 \
+     --build
