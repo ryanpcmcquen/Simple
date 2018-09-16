@@ -2,7 +2,8 @@
 
 A back to basics code editor. It originally used CodeMirror, but switched to Ace.
 
-![screenshot](https://raw.githubusercontent.com/ryanpcmcquen/Simple/master/assets/img/Simple_screenshot.png)
+![Dark theme screenshot](assets/img/Simple_screenshot_dark_0.png)
+![Light theme screenshot](assets/img/Simple_screenshot_light_0.png)
 
 ## Keyboard shorcuts:
 
