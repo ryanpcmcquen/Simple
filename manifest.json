@@ -12,13 +12,12 @@
     "offline_enabled": true,
     "name": "Simple",
     "permissions": [
-        {
-            "fileSystem": ["write"]
-        },
-        "unlimitedStorage",
-        "contextMenus"
+        "contextMenus",
+        "fileSystem",
+        "storage",
+        "unlimitedStorage"
     ],
-    "version": "3.4.0",
+    "version": "3.5.0",
     "file_handlers": {
         "text": {
             "types": [
