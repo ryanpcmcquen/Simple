@@ -27,14 +27,12 @@ _OR_
 _OR_
 <kbd>Cmd</kbd> + <kbd>F</kbd>
 
-### APIs
-
-* [chrome.fileSystem](http://developer.chrome.com/trunk/apps/fileSystem.html)
-* [Runtime](http://developer.chrome.com/trunk/apps/app.runtime.html)
-* [Window](http://developer.chrome.com/trunk/apps/app.window.html)
+The other shortcuts are analogous to most modern non-modal editors, try stuff out!
 
 ### This project uses:
 
 [![Prettier](https://prettier.io/icon.png)](https://prettier.io/)
 
 [![Ace Editor](https://ace.c9.io/doc/site/images/ace-logo.png)](https://ace.c9.io)
+
+[![nw.js](https://nwjs.io/img/logo.png)](https://nwjs.io)
