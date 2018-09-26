@@ -7,10 +7,12 @@ FileError,
 odis
 */
 window.addEventListener('load', () => {
-    chrome.runtime.getBackgroundPage((backgroundWindow) => {
-        console.log(backgroundWindow)
-        //const simplePreferences = backgroundWindow.launchData.simplePreferences
-        //const defaultTheme = simplePreferences ? simplePreferences.theme : 'twilight'
+    chrome.storage.local.get('simplePreferences', (result) => {
+        const simplePreferences = result.simplePreferences
+        const defaultTheme = simplePreferences
+            ? simplePreferences.theme
+            : 'twilight'
+        document.querySelector(`[value=${defaultTheme}]`).checked = true
         let fileEntry
         let hasWriteAccess
         const editor = ace.edit('editor')
@@ -190,7 +192,10 @@ window.addEventListener('load', () => {
                     mac: 'Command-=|Command-+'
                 },
                 exec: () => {
-                    editor.setOption('fontSize', editor.getOption('fontSize') + 2)
+                    editor.setOption(
+                        'fontSize',
+                        editor.getOption('fontSize') + 2
+                    )
                 }
             },
             {
@@ -200,7 +205,10 @@ window.addEventListener('load', () => {
                     mac: 'Command--|Command-_'
                 },
                 exec: () => {
-                    editor.setOption('fontSize', editor.getOption('fontSize') - 2)
+                    editor.setOption(
+                        'fontSize',
+                        editor.getOption('fontSize') - 2
+                    )
                 }
             },
             {
@@ -231,12 +239,11 @@ window.addEventListener('load', () => {
             .addEventListener('click', (event) => {
                 if (/INPUT/.test(event.target.tagName)) {
                     editor.setTheme(`ace/theme/${event.target.value}`)
-                    chrome.storage.local.set(
-                        'simplePreferences',
-                        {
+                    chrome.storage.local.set({
+                        simplePreferences: {
                             theme: event.target.value
                         }
-                    )
+                    })
                 }
             })
 
