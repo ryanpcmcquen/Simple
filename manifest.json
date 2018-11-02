@@ -13,11 +13,17 @@
     "name": "Simple",
     "permissions": [
         "contextMenus",
-        "fileSystem",
+        {
+            "fileSystem": [
+                "write",
+                "retainEntries",
+                "directory"
+            ]
+        },
         "storage",
         "unlimitedStorage"
     ],
-    "version": "3.5.0",
+    "version": "3.5.1",
     "file_handlers": {
         "text": {
             "types": [
